@@ -23,7 +23,9 @@
 #define ti tuple<int, int, int>
 #define T pair<int, pi>
 using namespace std;
+int n, m, k;
 int arr[1001] = { 0 };
+vector<T> v;
 int find(int x) {
 	if (x == arr[x])
 		return x;
@@ -35,17 +37,38 @@ void merge(int a, int b) {
 		swap(a, b);
 	arr[a] = b;
 }
+int solve() {
+	int cnt = 0;
+	int b_cnt = 0;
+	for (int i = 0; i < m; i++) {
+		int c = v[i].X;
+		int a = v[i].Y.X;
+		int b = v[i].Y.Y;
+		if (find(a) == find(b)) {
+			continue;
+		}
+		else {
+			merge(a, b);
+			if (c == 0)
+				b_cnt++;
+			cnt++;
+		}
+		if (cnt == n - 1)
+			break;
+	}
+	return b_cnt;
+}
 signed main(){
 	ios::sync_with_stdio(false);
 	cin.tie(NULL), cout.tie(NULL);
 	
 	while (1) {
-		int n, m, k;
 		cin >> n >> m >> k;
 		if (n == 0 && m == 0 && k == 0)
 			break;
 
-		vector<T> v(m);
+		v.clear();
+		v.resize(m);
 		for (int i = 0; i < m; i++) {
 			char c;
 			int f, t;
@@ -58,48 +81,13 @@ signed main(){
 			}
 		}
 
-		int cnt = 0;
 		iota(arr + 1, arr + n + 1, 1);
 		sort(v.begin(), v.end());
-		int b_max = 0;
-		for (int i = 0; i < m; i++) {
-			int c = v[i].X;
-			int a = v[i].Y.X;
-			int b = v[i].Y.Y;
-			if (find(a) == find(b)) {
-				continue;
-			}
-			else {
-				merge(a, b);
-				if (c == 0)
-					b_max++;
-				cnt++;
-			}
-			if (cnt == n - 1)
-				break;
-		}
-
-		cnt = 0;
+		int b_max = solve();
+		
 		iota(arr + 1, arr + n + 1, 1);
-		sort(v.begin(), v.end());
 		reverse(v.begin(), v.end());
-		int b_min = 0;
-		for (int i = 0; i < m; i++) {
-			int c = v[i].X;
-			int a = v[i].Y.X;
-			int b = v[i].Y.Y;
-			if (find(a) == find(b)) {
-				continue;
-			}
-			else {
-				merge(a, b);
-				if (c == 0)
-					b_min++;
-				cnt++;
-			}
-			if (cnt == n - 1)
-				break;
-		}
+		int b_min = solve();
 
 		if (b_min <= k && k <= b_max)
 			cout << 1 << '\n';
