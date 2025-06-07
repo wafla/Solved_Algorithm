@@ -45,31 +45,27 @@ signed main(){
 		if (n == 0 && m == 0 && k == 0)
 			break;
 
-		priority_queue<T, vector<T>, greater<T>> PQ;
-		priority_queue<T, vector<T>> RPQ;
+		vector<T> v(m);
 		for (int i = 0; i < m; i++) {
 			char c;
 			int f, t;
 			cin >> c >> f >> t;
 			if (c == 'B') {
-				PQ.push({ 0,{f,t} });
-				RPQ.push({ 0,{f,t} });
+				v[i] = { 0,{f,t} };
 			}
 			else {
-				PQ.push({ 1,{f,t} });
-				RPQ.push({ 1,{f,t} });
+				v[i] = { 1,{f,t} };
 			}
 		}
 
 		int cnt = 0;
 		iota(arr + 1, arr + n + 1, 1);
+		sort(v.begin(), v.end());
 		int b_max = 0;
-		while (!PQ.empty()) {
-			auto cur = PQ.top();
-			PQ.pop();
-			int c = cur.X;
-			int a = cur.Y.X;
-			int b = cur.Y.Y;
+		for (int i = 0; i < m; i++) {
+			int c = v[i].X;
+			int a = v[i].Y.X;
+			int b = v[i].Y.Y;
 			if (find(a) == find(b)) {
 				continue;
 			}
@@ -85,13 +81,13 @@ signed main(){
 
 		cnt = 0;
 		iota(arr + 1, arr + n + 1, 1);
+		sort(v.begin(), v.end());
+		reverse(v.begin(), v.end());
 		int b_min = 0;
-		while (!RPQ.empty()) {
-			auto cur = RPQ.top();
-			RPQ.pop();
-			int c = cur.X;
-			int a = cur.Y.X;
-			int b = cur.Y.Y;
+		for (int i = 0; i < m; i++) {
+			int c = v[i].X;
+			int a = v[i].Y.X;
+			int b = v[i].Y.Y;
 			if (find(a) == find(b)) {
 				continue;
 			}
@@ -111,3 +107,4 @@ signed main(){
 			cout << 0 << '\n';
 	}
 }
+// 참고 : https://everenew.tistory.com/176
