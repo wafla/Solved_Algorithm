@@ -31,15 +31,14 @@ signed main() {
 
     int n, m;
     cin >> n >> m;
-    set<int> a, b;
-    for (int i = 0, x; i < n; i++) {
-        cin >> x;
-        a.insert(x);
-    }
-    for (int i = 0, x; i < m; i++) {
-        cin >> x;
-        b.insert(x);
-    }
+    vector<int> a(n), b(m);
+    for (auto& i : a)
+        cin >> i;
+    for (auto& i : b)
+        cin >> i;
+
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
 
     vector<int> ans;
     set_difference(a.begin(), a.end(), b.begin(), b.end(), back_inserter(ans));
