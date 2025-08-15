@@ -40,11 +40,10 @@ signed main() {
         cin >> x;
         b.insert(x);
     }
-    int cnt = 0;
-    set<int> ans;
-    for (auto i : a) {
-        if (!b.count(i)) ans.insert(i);
-    }
+
+    vector<int> ans;
+    set_difference(a.begin(), a.end(), b.begin(), b.end(), back_inserter(ans));
+
     cout << ans.size() << '\n';
     for (auto i : ans)
         cout << i << " ";
