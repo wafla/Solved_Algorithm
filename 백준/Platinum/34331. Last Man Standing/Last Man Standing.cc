@@ -36,15 +36,16 @@ signed main(){
     for (int i = 1; i <= n; i++)
         parent[i] = i;
 
-    priority_queue<T, vector<T>> PQ;
+    vector<T> nodes;
     for (int i = 1; i <= n; i++) {
         for (int j = 1, x; j <= n; j++) {
             cin >> x;
             v[i][j] = x;
-            if(i < j)
-                PQ.push({ x, {i,j} });
+            if (i < j)
+                nodes.push_back({ x,{i,j} });
         }
     }
+    sort(nodes.begin(), nodes.end(), greater<>());
 
     function<int(int)> find = [&](int x) {
         if (x == parent[x])
@@ -64,14 +65,12 @@ signed main(){
     int cnt = 0;
     vector<int> arr(n + 1, 0);
     vector<vector<int>> vv(n + 1);
-    while (!PQ.empty()) {
+    for (auto i : nodes) {
         if (cnt == n - k)
             break;
-        auto cur = PQ.top();
-        PQ.pop();
-        int num = cur.X;
-        int x = cur.Y.X;
-        int y = cur.Y.Y;
+        int num = i.X;
+        int x = i.Y.X;
+        int y = i.Y.Y;
         if (find(x) != find(y)) {
             merge(x, y);
             sum += num;
