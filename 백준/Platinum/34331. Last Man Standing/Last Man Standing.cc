@@ -41,7 +41,8 @@ signed main(){
         for (int j = 1, x; j <= n; j++) {
             cin >> x;
             v[i][j] = x;
-            PQ.push({ x, {i,j} });
+            if(i < j)
+                PQ.push({ x, {i,j} });
         }
     }
 
