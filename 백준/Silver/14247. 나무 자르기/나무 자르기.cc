@@ -40,16 +40,13 @@ signed main() {
         ans += i;
     }
 
-    priority_queue<int, vector<int>> PQ;
     for (auto& i : a) {
         cin >> i;
-        PQ.push(i);
     }
-
-    while (!PQ.empty()) {
-        auto cur = PQ.top();
-        PQ.pop();
-        ans += cur * --n;
+    
+    sort(a.begin(), a.end(), greater<>());
+    for (int i = 0; i < n; i++) {
+        ans += a[i] * (n - (i + 1));
     }
     cout << ans << '\n';
 }
