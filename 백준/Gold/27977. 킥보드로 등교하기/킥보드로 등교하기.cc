@@ -35,11 +35,10 @@ signed main() {
 
     int l, n, k;
     cin >> l >> n >> k;
-    vector<int> arr(n);
-    for (auto& i : arr)
-        cin >> i;
-    arr.push_back(0), arr.push_back(l);
-    sort(arr.begin(), arr.end());
+    vector<int> arr(n + 2);
+    arr[0] = 0, arr[n + 1] = l;
+    for (int i = 1; i < n + 1; i++)
+        cin >> arr[i];
 
     int maxx = 0;
     for (int i = 0; i < arr.size() - 1; i++) {
