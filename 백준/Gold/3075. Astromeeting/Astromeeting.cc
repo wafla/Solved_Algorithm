@@ -70,12 +70,12 @@ signed main() {
         pi ans = { 101, INF };
         for (int k = 1; k <= p; k++) {
             int sum = 0;
-            for (int i = 0; i < n; i++) {
-                if (dp[people[i]][k] == INF) {
+            for (auto i : people) {
+                if (dp[i][k] == INF) {
                     sum = INF;
                     break;
                 }
-                sum += dp[people[i]][k] * dp[people[i]][k];
+                sum += dp[i][k] * dp[i][k];
             }
             if (sum < ans.Y) {
                 ans = { k, sum };
