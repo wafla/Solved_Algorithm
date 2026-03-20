@@ -45,14 +45,12 @@ signed main() {
 
     sort(arr.begin(), arr.end());
 
-    int left = 0, right = 1;
+    int left = 0, right = 0;
     int minn = INF;
     set<int> total;
     total.insert(arr[left].Y);
-    total.insert(arr[right].Y);
     vector<set<int>> checked(n);
     checked[arr[left].Y].insert(arr[left].X);
-    checked[arr[right].Y].insert(arr[right].X);
 
     while (true) {
         if (total.size() < n) {
