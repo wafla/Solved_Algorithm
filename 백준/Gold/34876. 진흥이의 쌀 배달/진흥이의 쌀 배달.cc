@@ -55,8 +55,7 @@ signed main() {
             sum += dfs(nx, idx, v[idx][i].Y);
         }
         come[prev] += come[idx];
-        sum += (come[idx] / k) * w;
-        if (come[idx] % k > 0) sum += w;
+        sum += ((come[idx] + k - 1) / k) * w;
         return sum;
     };
 
