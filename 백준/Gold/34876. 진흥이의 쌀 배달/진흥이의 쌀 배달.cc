@@ -1,0 +1,64 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <string>
+#include <deque>
+#include <math.h>
+#include <memory.h>
+#include <stack>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <tuple>
+#include <numeric>
+#include <bit>
+#include <functional>
+#include <utility>
+#define X first
+#define Y second
+#define INF 1e18
+#define LINF 9223372036854775807
+#define MOD 1000000007
+#define ll long long
+#define int long long
+#define pi pair<int, int>
+#define ti tuple<int, int, int>
+#define T pair<int, pi>
+#define pdi pair<double, int>
+using namespace std;
+signed main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int n, k;
+    cin >> n >> k;
+
+    vector<int> come(n + 1);
+    for (int i = 1; i <= n; i++) {
+        cin >> come[i];
+    }
+
+    vector<vector<pi>> v(n + 1);
+    for (int i = 0; i < n; i++) {
+        int a, b, t;
+        cin >> a >> b >> t;
+        v[a].push_back({ b,t });
+        v[b].push_back({ a,t });
+    }
+
+    function<int(int, int, int)> dfs = [&](int idx, int prev, int w) {
+        int sum = 0;
+        for (int i = 0; i < v[idx].size(); i++) {
+            int nx = v[idx][i].X;
+            if (nx == prev) continue;
+            sum += dfs(nx, idx, v[idx][i].Y);
+        }
+        come[prev] += come[idx];
+        sum += (come[idx] / k) * w;
+        if (come[idx] % k > 0) sum += w;
+        return sum;
+    };
+
+    cout << 2 * dfs(0, 0, 0) << '\n';
+}
