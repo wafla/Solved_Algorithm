@@ -27,6 +27,7 @@
 #define T pair<int, pi>
 #define pdi pair<double, int>
 using namespace std;
+bool visited[17][1 << 17];
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
@@ -55,10 +56,9 @@ signed main() {
     else if (arr[0] == 2)
         ans = { 0,1 };
 
-    set<pi> visited;
     queue<pair<pi, pi>> Q; // {idx, 방문한 곳}, {사과, 배}
     Q.push({ {0,1 << 0}, ans });
-    visited.insert({ 0, (1 << 0) });
+    visited[0][1 << 0] = true;
 
     while (!Q.empty()) {
         auto cur = Q.front();
@@ -87,8 +87,8 @@ signed main() {
                 else if (arr[nx] == 2) npe++;
             }
 
-            if (!visited.count({ nx, nmask })) {
-                visited.insert({ nx, nmask });
+            if (!visited[nx][nmask]) {
+                visited[nx][nmask] = true;
                 Q.push({ {nx, nmask}, {nap, npe} });
             }
         }
