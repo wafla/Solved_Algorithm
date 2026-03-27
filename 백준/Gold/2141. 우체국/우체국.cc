@@ -9,39 +9,47 @@
 #include <stack>
 #include <map>
 #include <set>
+#include <unordered_map>
+#include <tuple>
+#include <numeric>
+#include <bit>
+#include <functional>
+#include <utility>
 #define X first
 #define Y second
-#define INF 0x3f3f3f3f
+#define INF 1e18
+#define LINF 9223372036854775807
 #define MOD 1000000007
 #define ll long long
+#define int long long
+#define pi pair<int, int>
+#define ti tuple<int, int, int>
+#define T pair<int, pi>
+#define pdi pair<double, int>
 using namespace std;
-int main()
-{
-	ios::sync_with_stdio(false);
-	cin.tie(NULL), cout.tie(NULL);
-	int n;
-	cin >> n;
-	vector<pair<int, int>> v(n);
-	ll l_sum = 0, r_sum = 0, minn;
-	int ans;
-	for (int i = 0; i < n; i++)
-	{
-		cin >> v[i].X >> v[i].Y;
-		r_sum += v[i].Y;
-	}
-	sort(v.begin(), v.end());
-	r_sum -= v[0].Y;
-	ans = v[0].X;
-	minn = r_sum;
-	for (int i = 1; i < n; i++)
-	{
-		r_sum -= v[i].Y;
-		l_sum += v[i - 1].Y;
-		if (minn > abs(r_sum - l_sum))
-		{
-			minn = abs(r_sum - l_sum);
-			ans = v[i].X;
-		}
-	}
-	cout << ans;
+
+signed main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int n, sum = 0;
+    cin >> n;
+
+    vector<pi> v(n);
+    for (auto& i : v) {
+        cin >> i.X >> i.Y;
+        sum += i.Y;
+    }
+    sort(v.begin(), v.end());
+
+    int ans = v[0].X, sum2 = 0;
+    for (int i = 0; i < n; i++) {
+        sum2 += v[i].Y;
+        if (sum2 >= ceil(double(sum) / 2)) {
+            ans = v[i].X;
+            break;
+        }
+    }
+
+    cout << ans << '\n';
 }
