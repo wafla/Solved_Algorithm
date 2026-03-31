@@ -27,7 +27,7 @@
 #define T pair<int, pi>
 #define pdi pair<double, int>
 using namespace std;
-map<int, int> M;
+int M[300001];
 priority_queue<T, vector<T>, greater<T>> PQ;
 set<pi> S;
 void find(int b, int a) {
