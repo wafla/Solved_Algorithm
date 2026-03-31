@@ -27,6 +27,24 @@
 #define T pair<int, pi>
 #define pdi pair<double, int>
 using namespace std;
+map<int, int> M;
+priority_queue<T, vector<T>, greater<T>> PQ;
+set<pi> S;
+void find(int b, int a) {
+    auto it = S.find({ b,a });
+
+    auto nx = next(it);
+    if (nx != S.end() && nx->X != INF) {
+        int num = nx->X - b;
+        PQ.push({ num, {a, nx->Y} });
+    }
+
+    auto px = prev(it);
+    if (px != S.begin() && px->X != -INF) {
+        int num = b - px->X;
+        PQ.push({ num, {a, px->Y} });
+    }
+}
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL), cout.tie(NULL);
@@ -34,9 +52,6 @@ signed main() {
     int q;
     cin >> q;
 
-    priority_queue<T, vector<T>, greater<T>> PQ;
-    map<int, int> M;
-    set<pi> S;
     S.insert({ INF, 0 }), S.insert({ -INF, 0 });
 
     while (q--) {
@@ -48,20 +63,7 @@ signed main() {
             cin >> a >> b;
             M[a] = b;
             S.insert({ b,a });
-
-            auto it = S.find({ b,a });
-
-            auto nx = next(it);
-            if (nx != S.end() && nx->X != INF) {
-                int num = nx->X - b;
-                PQ.push({ num, {a, nx->Y} });
-            }
-
-            auto px = prev(it);
-            if (px != S.begin() && px->X != -INF) {
-                int num = b - px->X;
-                PQ.push({ num, {a, px->Y} });
-            }
+            find(b, a);
         }
         else if (t == 2) {
             while (!PQ.empty()) {
@@ -78,38 +80,12 @@ signed main() {
                     if (M[cur.Y.X] > 0) {
                         int a = cur.Y.X;
                         int b = M[cur.Y.X];
-
-                        auto it = S.find({ b,a });
-
-                        auto nx = next(it);
-                        if (nx != S.end() && nx->X != INF) {
-                            int num = nx->X - b;
-                            PQ.push({ num, {a, nx->Y} });
-                        }
-
-                        auto px = prev(it);
-                        if (px != S.begin() && px->X != -INF) {
-                            int num = b - px->X;
-                            PQ.push({ num, {a, px->Y} });
-                        }
-                        else if (M[cur.Y.Y] > 0) {
-                            int a = cur.Y.Y;
-                            int b = M[cur.Y.Y];
-
-                            auto it = S.find({ b,a });
-
-                            auto nx = next(it);
-                            if (nx != S.end() && nx->X != INF) {
-                                int num = nx->X - b;
-                                PQ.push({ num, {a, nx->Y} });
-                            }
-
-                            auto px = prev(it);
-                            if (px != S.begin() && px->X != -INF) {
-                                int num = b - px->X;
-                                PQ.push({ num, {a, px->Y} });
-                            }
-                        }
+                        find(b, a);
+                    }
+                    else if (M[cur.Y.Y] > 0) {
+                        int a = cur.Y.Y;
+                        int b = M[cur.Y.Y];
+                        find(b, a);
                     }
                 }
             }
