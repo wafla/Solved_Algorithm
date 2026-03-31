@@ -93,24 +93,6 @@ signed main() {
                             PQ.push({ num, {a, px->Y} });
                         }
                     }
-                    else if (M[cur.Y.Y] > 0) {
-                        int a = cur.Y.Y;
-                        int b = M[cur.Y.Y];
-
-                        auto it = S.find({ b,a });
-
-                        auto nx = next(it);
-                        if (nx != S.end() && nx->X != INF) {
-                            int num = nx->X - b;
-                            PQ.push({ num, {a, nx->Y} });
-                        }
-
-                        auto px = prev(it);
-                        if (px != S.begin() && px->X != -INF) {
-                            int num = b - px->X;
-                            PQ.push({ num, {a, px->Y} });
-                        }
-                    }
                 }
             }
         }
