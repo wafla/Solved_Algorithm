@@ -34,6 +34,7 @@ int ans = INF;
 void check() {
     int x = 1, y = 0, dir = 0, cnt = 0; // dir :: 0-동, 1-남, 2-서, 3-북
     while (1) {
+        if (ans != INF && cnt >= ans) break;
         if (x == n && y == n + 1) {
             if (ans > cnt) ans = cnt;
             break;
