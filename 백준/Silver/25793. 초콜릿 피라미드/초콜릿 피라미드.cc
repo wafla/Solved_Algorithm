@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <string>
+#include <deque>
+#include <math.h>
+#include <memory.h>
+#include <stack>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <tuple>
+#include <numeric>
+#include <bit>
+#include <functional>
+#include <utility>
+#define X first
+#define Y second
+#define INF 1e18
+#define LINF 9223372036854775807
+#define MOD 1000000007
+#define ll long long
+#define int long long
+#define pi pair<int, int>
+#define ti tuple<int, int, int>
+#define T pair<int, pi>
+#define pdi pair<double, int>
+using namespace std;
+signed main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL), cout.tie(NULL);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int r, c;
+        cin >> r >> c;
+
+        int a = min(r, c);
+        int b = abs(r - c);
+
+        int w = a * (a + 1) * (2 * a + 1) / 3 + (b - 1) * a * (a + 1) + a * (1 - b);
+        int d = w - a;
+
+        cout << w << " " << d << '\n';
+    }
+}
+
+// 참고: https://blog.bubbler.blue/posts/chocolate1/editorial/
