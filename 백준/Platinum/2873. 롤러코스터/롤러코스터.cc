@@ -34,7 +34,7 @@ int main()
 		for (int j = 1; j <= m; j++)
 		{
 			cin >> arr[i][j];
-			if ((i % 2 == 0 && j % 2 == 1) || (i % 2 == 1 && j % 2 == 0))
+			if ((i + j) % 2 == 1)
 			{
 				if (arr[i][j] < minn.num)
 				{
@@ -45,13 +45,12 @@ int main()
 			}
 		}
 	}
+    int x = 1, y = 1;
 	if (n % 2 == 0 && m % 2 == 0)
-	{
-		int x = 1, y = 1;
+    {
 		while (x < n || y < m)
 		{
-			int tmp_y = y;
-			if (tmp_y % 2 == 1 && (tmp_y == minn.y || tmp_y + 1 == minn.y))
+			if (y % 2 == 1 && (y == minn.y || y + 1 == minn.y))
 			{
 				int cnt = 1;
 				while (cnt < 2 * n - 1)
@@ -117,7 +116,6 @@ int main()
 	}
 	else if (n % 2 == 0 && m % 2 == 1)
 	{
-		int x = 1, y = 1;
 		while (x < n || y < m)
 		{
 			while (x < n)
@@ -140,7 +138,6 @@ int main()
 	}
 	else
 	{
-		int x = 1, y = 1;
 		while (x < n || y < m)
 		{
 			while (y < m)
